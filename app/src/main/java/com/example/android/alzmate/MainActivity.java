@@ -1,6 +1,7 @@
 package com.example.android.alzmate;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -32,7 +33,7 @@ import com.example.android.alzmate.Model.PeopleFragment;
 import java.lang.reflect.Field;
 
 
-public class MainActivity extends AppCompatActivity implements CallBackInterface,CallbackInterfaceforDiaryCreate {
+public class MainActivity extends AppCompatActivity  {
     private BottomNavigationView mNavView;
     private FrameLayout mMainFrame;
     private HomeFragment homeFragment;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     private ChatFragment chatFragment;
     private Fragment_diary_create fragment_diary_create;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +52,13 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         mNavView=(BottomNavigationView)findViewById(R.id.main_nav);
         disableShiftMode((mNavView));
         mMainFrame=(FrameLayout)findViewById(R.id.main_frame);
+
         homeFragment=new HomeFragment();
         peopleFragment=new PeopleFragment();
         cameraFragment=new CameraFragment();
-//        diaryFragment=new DiaryFragment();
+       diaryFragment=new DiaryFragment();
         chatFragment=new ChatFragment();
-//        fragment_diary_create = new Fragment_diary_create();
+        fragment_diary_create = new Fragment_diary_create();
         setFragement(homeFragment);
         mNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -71,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
                         setFragement(cameraFragment);
                         return true;
                     case R.id.action_diary:
-                        //setFragement(fragment_diary_create);
-                        setFragementforDiaryList();
+                        setFragement(diaryFragment);
+//                        setFragementforDiaryList();
                         return true;
                     case R.id.action_chat:
                         setFragement(chatFragment);
@@ -98,33 +101,11 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
     }
 
-    private void setFragement(Fragment fragement) {
+    public void setFragement(Fragment fragement) {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragement);
         fragmentTransaction.commit();
-
     }
-
-    private void setFragementforDiaryList() {
-        diaryFragment=new DiaryFragment();
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        diaryFragment.setCallBackInterface(this);
-        fragmentTransaction.replace(R.id.main_frame,diaryFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
-    private void setFragementforDiaryCreate() {
-        fragment_diary_create = new Fragment_diary_create();
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragment_diary_create.setCallBackInterface(this);
-        fragmentTransaction.replace(R.id.main_frame,fragment_diary_create);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
-
-
 
 
 
@@ -157,17 +138,12 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
 
 
-
     @Override
-    public void callBackMethod() {
-        Toast.makeText(this,"clicked for CallbackDiary Fragment",Toast.LENGTH_SHORT).show();
-        setFragementforDiaryCreate();
-    }
-
-    @Override
-    public void callbackmethodforDiaryCreate() {
-        Toast.makeText(this,"clicked for Callbackfor Diary Create",Toast.LENGTH_SHORT).show();
-        setFragementforDiaryList();
-
+    public void onBackPressed() {
+        super.onBackPressed();
+//        Intent startMain=new Intent(Intent.ACTION_MAIN);
+//        startMain.addCategory(Intent.CATEGORY_HOME);
+//        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(startMain);
     }
 }

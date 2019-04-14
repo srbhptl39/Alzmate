@@ -84,7 +84,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
                 String currentClockTime=currentTime.toString();
                 time=currentClockTime.split(" ")[2]+"-April-2019";
                 patientTimeView.setText(time);
-                Glide.with(getContext()).load(imageURL).into(patientImageView);
+               Glide.with(getContext()).load(imageURL).into(patientImageView);
 
             }
 

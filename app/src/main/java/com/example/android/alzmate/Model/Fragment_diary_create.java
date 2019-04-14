@@ -125,10 +125,6 @@ public class Fragment_diary_create extends android.support.v4.app.Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     progressDialog.dismiss();
 
-                    if(callbackInterfaceforDiaryCreate!=null){
-                        callbackInterfaceforDiaryCreate.callbackmethodforDiaryCreate();
-                    }
-
                 }
             });
         }else {
